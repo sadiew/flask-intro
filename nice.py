@@ -43,6 +43,11 @@ def say_hello():
                     <input type="radio" name="compliment" value="brilliant">brilliant
                     <input type="radio" name="compliment" value="dynamic">dynamic
                 </label><br><br>
+                <label>Choose some more compliments:
+                    <input type="checkbox" name="add_compliment" value="fabulous">fabulous
+                    <input type="checkbox" name="add_compliment" value="brilliant">brilliant
+                    <input type="checkbox" name="add_compliment" value="dynamic">dynamic
+                </label><br><br>
                 <input type="submit">
             </form>
         </body>
@@ -54,6 +59,7 @@ def say_hello():
 def greet_person():
     player = request.args.get("person")
     compliment = request.args.get("compliment")
+    additional_compliments = request.args.getlist("add_compliment")
 
     return """
     <!DOCTYPE html>
@@ -62,9 +68,9 @@ def greet_person():
             <title>A Compliment</title>
         </head>
         <body>
-            Hi %s, I think you're %s!
+            Hi %s, I think you're %s...and %s....and finally %s!
         </body>
-    </html>""" % (player, compliment)
+    </html>""" % (player, compliment, additional_compliments[0], additional_compliments[1].upper())
 
 
 if __name__ == '__main__':
